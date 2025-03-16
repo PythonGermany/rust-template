@@ -32,9 +32,7 @@ jobs:
           ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
       - name: update example
-        run: |
-          rm -rf ${{ env.PROJECT_NAME }}
-          cp ${{ env.PROJECT_NAME }}.old/.git ${{ env.PROJECT_NAME }}
+        run: cp -rf ${{ env.PROJECT_NAME }}.old/.git ${{ env.PROJECT_NAME }}
       - name: commit example
         run: |
           cd ${{ env.PROJECT_NAME }}
