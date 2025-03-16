@@ -27,7 +27,7 @@ jobs:
       - name: Checkout old example
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository_owner }}/rust-gh-example
+          repository: ${{ github.repository_owner }}/${{ env.PROJECT_NAME }}
           path: old_example
           ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
@@ -37,23 +37,23 @@ jobs:
           pwd
           echo "ls -al:"
           ls -al
-          rm rust-gh-example/src/main.rs
-          rm rust-gh-example/Cargo.toml
-          rm rust-gh-example/LICENSE-MIT
-          cp old_example/src/* rust-gh-example/src/
-          cp old_example/Cargo.toml rust-gh-example/Cargo.toml
-          cp old_example/LICENSE-MIT rust-gh-example/LICENSE-MIT
+          rm ${{ env.PROJECT_NAME }}/src/main.rs
+          rm ${{ env.PROJECT_NAME }}/Cargo.toml
+          rm ${{ env.PROJECT_NAME }}/LICENSE-MIT
+          cp old_example/src/* ${{ env.PROJECT_NAME }}/src/
+          cp old_example/Cargo.toml ${{ env.PROJECT_NAME }}/Cargo.toml
+          cp old_example/LICENSE-MIT ${{ env.PROJECT_NAME }}/LICENSE-MIT
       - name: update example
         run: |
           mkdir old_sources
           mv old_example/src/* old_sources
           cd old_example
           rm -rf * .gitignore .github/
-          echo "ls ../rust-gh-example:"
-          ls ../rust-gh-example
-          echo "ls ../rust-gh-example/src:"
-          ls ../rust-gh-example/src
-          mv ../rust-gh-example/* ../rust-gh-example/.github ../rust-gh-example/.gitignore .
+          echo "ls ../${{ env.PROJECT_NAME }}:"
+          ls ../${{ env.PROJECT_NAME }}
+          echo "ls ../${{ env.PROJECT_NAME }}/src:"
+          ls ../${{ env.PROJECT_NAME }}/src
+          mv ../${{ env.PROJECT_NAME }}/* ../${{ env.PROJECT_NAME }}/.github ../${{ env.PROJECT_NAME }}/.gitignore .
           echo "ls -al:"
           ls -al
           rm src/*
