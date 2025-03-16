@@ -72,6 +72,8 @@ jobs:
           toolchain: {{ "${{ matrix.rust }}" }}
           args: --release --target {{ "${{ matrix.job.target }}" }}
 
+          #Change
+
       - name: install strip command
         shell: bash
         run: |
