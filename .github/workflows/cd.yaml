@@ -29,7 +29,7 @@ jobs:
         with:
           repository: ${{ github.repository_owner }}/rust-gh-example
           path: old_example
-          #ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
+          ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
       - name: move sources, mit license and Cargo.toml from old to new example
         run: |
