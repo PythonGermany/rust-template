@@ -1,5 +1,7 @@
 # Contribution guidelines
 
+This is a change
+
 First off, thank you for considering contributing to {{project-name}}.
 
 If your contribution is not straightforward, please first discuss the change you
