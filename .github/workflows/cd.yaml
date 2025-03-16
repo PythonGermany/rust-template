@@ -28,39 +28,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ env.PROJECT_NAME }}
-          path: old_example
+          path: ${{ env.PROJECT_NAME }}.old
           ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
-      - name: move sources, mit license and Cargo.toml from old to new example
-        run: |
-          echo "pwd:"
-          pwd
-          echo "ls -al:"
-          ls -al
-          rm ${{ env.PROJECT_NAME }}/src/main.rs
-          rm ${{ env.PROJECT_NAME }}/Cargo.toml
-          rm ${{ env.PROJECT_NAME }}/LICENSE-MIT
-          cp old_example/src/* ${{ env.PROJECT_NAME }}/src/
-          cp old_example/Cargo.toml ${{ env.PROJECT_NAME }}/Cargo.toml
-          cp old_example/LICENSE-MIT ${{ env.PROJECT_NAME }}/LICENSE-MIT
       - name: update example
         run: |
-          mkdir old_sources
-          mv old_example/src/* old_sources
-          cd old_example
-          rm -rf * .gitignore .github/
-          echo "ls ../${{ env.PROJECT_NAME }}:"
-          ls ../${{ env.PROJECT_NAME }}
-          echo "ls ../${{ env.PROJECT_NAME }}/src:"
-          ls ../${{ env.PROJECT_NAME }}/src
-          mv ../${{ env.PROJECT_NAME }}/* ../${{ env.PROJECT_NAME }}/.github ../${{ env.PROJECT_NAME }}/.gitignore .
-          echo "ls -al:"
-          ls -al
-          rm src/*
-          mv ../old_sources/* src
+          rm -rf ${{ env.PROJECT_NAME }}
+          cp ${{ env.PROJECT_NAME }}.old/.git ${{ env.PROJECT_NAME }}
       - name: commit example
         run: |
-          cd old_example
+          cd ${{ env.PROJECT_NAME }}
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
