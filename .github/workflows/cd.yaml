@@ -17,7 +17,7 @@ jobs:
         with:
           name: ${{ env.PROJECT_NAME }}
           template: template
-          arguments: "--template-values-file .github/workflows/template_values.toml -d ${{ github.repository_owner }} --verbose"
+          arguments: "--template-values-file .github/workflows/template_values.toml -d gh-username=${{ github.repository_owner }} --verbose"
 
       - name: Generate lockfile
         run: |
