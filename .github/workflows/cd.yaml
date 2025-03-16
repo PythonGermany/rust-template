@@ -17,7 +17,7 @@ jobs:
         with:
           name: ${{ env.PROJECT_NAME }}
           template: template
-          arguments: "--template-values-file .github/workflows/template_values.toml --verbose"
+          arguments: "--template-values-file .github/workflows/template_values.toml -d ${{ github.repository_owner }} --verbose"
 
       - name: Generate lockfile
         run: |
@@ -27,9 +27,9 @@ jobs:
       - name: Checkout old example
         uses: actions/checkout@v4
         with:
-          repository: rust-github/rust-gh-example
+          repository: ${{ github.repository_owner }}/rust-gh-example
           path: old_example
-          ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
+          #ssh-key: ${{ secrets.GH_EXAMPLE_DEPLOY_SECRET }}
 
       - name: move sources, mit license and Cargo.toml from old to new example
         run: |
